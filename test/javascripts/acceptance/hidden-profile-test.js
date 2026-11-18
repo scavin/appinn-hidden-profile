@@ -1,4 +1,4 @@
-import { click, visit, waitFor } from "@ember/test-helpers";
+import { click, triggerEvent, visit, waitFor } from "@ember/test-helpers";
 import { test } from "qunit";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 import { i18n } from "discourse-i18n";
@@ -38,7 +38,7 @@ acceptance("Appinn Hidden Profile - user cards", function (needs) {
     await visit("/t/this-is-a-test-topic/9");
     await click('a[data-user-card="eviltrout"]');
     await waitFor(".user-card .hidden-profile-link");
-    await click("#main-outlet");
+    await triggerEvent("#main-outlet", "pointerdown");
     await click('a[data-user-card="eviltrout"]');
     await waitFor(".user-card .hidden-profile-link");
 
