@@ -31,7 +31,9 @@ acceptance("Appinn Hidden Profile - user cards", function (needs) {
     assert
       .dom(".user-card .hidden-profile-link")
       .hasAttribute("href", "/u/eviltrout/profile-hidden");
-    assert.dom(".user-card .profile-hidden").hasText(i18n("user.profile_hidden"));
+    assert
+      .dom(".user-card .profile-hidden")
+      .hasText(i18n("user.profile_hidden"));
   });
 
   test("reopening a user card does not duplicate the link", async (assert) => {
