@@ -1,0 +1,14 @@
+{
+  "name": "appinn-hidden-profile",
+  "private": true,
+  "devDependencies": {
+    "@discourse/lint-configs": "3.8.2",
+    "eslint": "10.6.0",
+    "prettier": "3.8.1"
+  },
+  "scripts": {
+    "lint:js": "eslint assets/javascripts",
+    "lint:prettier": "prettier assets/javascripts --check"
+  },
+  "packageManager": "pnpm@12.11.2"
+}

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-# name: appinn-hidden-profile-state
-# about: Exposes only the viewer's own relationship state and permissions on hidden profiles.
-# version: 0.1.1
+# name: appinn-hidden-profile
+# about: Links hidden user cards and restores native relationship controls.
+# version: 0.2.0
 # authors: Appinn
+# url: https://github.com/scavin/appinn-hidden-profile
 
 after_initialize do
   add_to_serializer(:hidden_profile, :can_mute_user) do

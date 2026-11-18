@@ -1,6 +1,13 @@
-# Appinn Hidden Profile State
+# Appinn Hidden Profile
 
-Discourse 插件，为隐藏资料接口补充当前访问者自己的关系与权限，让原生用户通知菜单和官方 Follow 按钮正常工作。
+一个 Discourse 插件，同时提供用户卡片链接和隐藏资料页面的原生操作。
+
+- 用户卡片提示中的「已被隐藏」链接到该用户的 `/u/:username/profile-hidden`。
+- 隐藏资料页面使用 Discourse 原生静音/忽略菜单。
+- 补齐访问者自己的关系状态，使官方 Follow 的原生取消关注按钮正常显示。
+- 无需额外安装主题组件，不添加重复操作按钮。
+
+卡片使用原生模型中的真实用户名。中文只链接「已被隐藏」，其他语言将整条隐藏提示作为链接。
 
 ## 提供的字段
 
@@ -19,17 +26,25 @@ Discourse 插件，为隐藏资料接口补充当前访问者自己的关系与�
 
 ## 安装
 
-将本仓库安装到 Discourse 的 `plugins/appinn-hidden-profile-state`，然后按实际部署方式重建或重启。Docker 部署通常在 `containers/app.yml` 的插件安装步骤加入：
+将本仓库安装到 Discourse 的 `plugins/appinn-hidden-profile`，然后按实际部署方式重建或重启。Docker 部署通常在 `containers/app.yml` 的插件安装步骤加入：
 
 ```yaml
-- git clone https://github.com/scavin/appinn-hidden-profile-state.git
+- git clone https://github.com/scavin/appinn-hidden-profile.git
 ```
 
 这是添加到现有插件安装列表的条目，不是完整部署配置。私有仓库需要部署环境具有读取权限。
 
 插件独立支持原生静音/忽略菜单。关注相关功能需要安装并启用官方 [Discourse Follow](https://github.com/discourse/discourse-follow)。
 
-如果还需要用户卡片中「已被隐藏」的跳转链接，安装配套主题组件 [Appinn Hidden Profile Actions](https://github.com/scavin/appinn-hidden-profile-actions)。
+## 从分离版本迁移
+
+0.2.0 已合并原来的主题组件和状态插件：
+
+1. 在主题后台停用旧的 **Appinn Hidden Profile Actions** 组件。
+2. 将部署配置中的旧 `appinn-hidden-profile-state` 插件替换为本仓库，只保留一份安装。
+3. 按部署方式重建或重启 Discourse，然后刷新浏览器。
+
+既有忽略、静音和关注关系不需要迁移。旧仓库历史保留，后续只更新本仓库。
 
 ## 权限和状态
 
@@ -39,8 +54,8 @@ Discourse 插件，为隐藏资料接口补充当前访问者自己的关系与�
 
 ## 性能和移除
 
-没有新增接口请求、轮询或后台任务。复用原有隐藏资料响应；登录请求中新增一次使用现有联合索引的关注关系存在性查询，其余字段调用原生 Guardian。未做并发压测。
+前端监听 DOM 变化更新卡片链接；没有新增接口请求、轮询或后台任务。复用原有隐藏资料响应；登录请求中新增一次使用现有联合索引的关注关系存在性查询，其余字段调用原生 Guardian。未做并发压测。
 
 移除插件并重启可撤回接口扩展，原始关系数据不会被删除。
 
-版本：0.1.1。验证范围见 [TESTING.md](TESTING.md)。
+版本：0.2.0。验证范围见 [TESTING.md](TESTING.md)。
