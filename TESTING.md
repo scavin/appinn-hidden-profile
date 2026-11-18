@@ -32,7 +32,21 @@
 
 ## 限制
 
-当前仓库未提供自动化 CI、完整版本兼容测试或并发压测。原生菜单和 Follow 的交互由对应上游实现承担，后续 Discourse / Follow 升级后需复查。
+仓库已接入官方插件 CI；尚未进行完整版本兼容测试或并发压测。原生菜单和 Follow 的交互由对应上游实现承担，后续 Discourse / Follow 升级后需复查。
+
+## 自动化回归测试
+
+- 工作流调用 `discourse/.github/.github/workflows/discourse-plugin.yml@v1`，支持 main 推送、Pull Request 和手动触发。
+- 10 个后端请求用例，覆盖权限、忽略/静音状态、访问者隔离、匿名、工作人员、Follow 关闭和保留关系取消关注。本地独立测试数据库运行 10/10 通过。
+- 2 个前端验收用例，使用真实用户卡片和 Pretender 夹具，覆盖真实用户名链接、本地化提示及重复打开不重复生成链接。
+- 本地 Linux 测试机没有 Chrome，前端自动化由官方 CI 浏览器容器执行；最新远端结果见仓库 Actions 页面。
+
+在完整 Discourse 开发环境可运行：
+
+```sh
+LOAD_PLUGINS=1 bin/rspec plugins/appinn-hidden-profile/spec
+LOAD_PLUGINS=1 bin/qunit --standalone --target appinn-hidden-profile --filter "Appinn Hidden Profile"
+```
 
 ## 0.2.0 合并插件验证
 

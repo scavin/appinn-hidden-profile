@@ -59,3 +59,9 @@
 移除插件并重启可撤回接口扩展，原始关系数据不会被删除。
 
 版本：0.2.0。验证范围见 [TESTING.md](TESTING.md)。
+
+## 自动检查
+
+已接入 [Discourse 官方插件 GitHub Actions](https://github.com/scavin/appinn-hidden-profile/actions/workflows/discourse-plugin.yml)。main 推送、Pull Request 和手动运行都会执行静态检查、后端 RSpec 和前端 QUnit。
+
+CI 通过 `about.json` 安装测试用 Follow 依赖，覆盖隐藏资料权限、访问者状态隔离、保留关注关系和真实用户卡片链接。
